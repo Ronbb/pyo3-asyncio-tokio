@@ -1,16 +1,14 @@
 use pyo3::prelude::*;
 
-use super::*;
-
 #[pymodule]
 pub mod asyncio {
-    use super::*;
+    use super::{super::*, *};
 
     #[pymodule_export]
-    use events::module as events;
+    use _events::events;
 
     #[pymodule_export]
-    use runners::module as runners;
+    use _runners::runners;
 
     #[pymodule_init]
     fn init(_m: &Bound<'_, PyModule>) -> PyResult<()> {

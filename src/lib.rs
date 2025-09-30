@@ -1,5 +1,5 @@
-mod inner;
+mod module;
 mod wrapper;
 
-pub use inner::asyncio;
+pub use module::*;
 pub use wrapper::*;

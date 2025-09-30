@@ -1,11 +1,8 @@
 use pyo3::prelude::*;
 
 #[pymodule]
-#[pyo3(module = "runners")]
-pub mod module {
-    use crate::inner::events::{self, module::EventLoop};
-
-    use super::*;
+pub mod runners {
+    use super::{super::*, *};
 
     #[pyfunction]
     #[pyo3(signature = (coro, *, debug=None, loop_factory=None))]
@@ -30,7 +27,7 @@ pub mod module {
         state: RunnerState,
         debug: Option<bool>,
         loop_factory: Option<Py<PyAny>>,
-        r#loop: Option<Py<EventLoop>>,
+        r#loop: Option<Py<events::EventLoop>>,
         set_event_loop: bool,
         context: Option<Py<PyAny>>,
         interrupt_count: usize,
@@ -47,10 +44,10 @@ pub mod module {
                             r#loop
                         }
                         None => {
-                            let r#loop = events::module::new_event_loop(py)?.into_bound(py);
+                            let r#loop = events::new_event_loop(py)?.into_bound(py);
                             self.r#loop = Some(r#loop.clone().unbind());
                             if !self.set_event_loop {
-                                events::module::set_event_loop(py, r#loop.clone().unbind())?;
+                                events::set_event_loop(py, r#loop.clone().unbind())?;
                                 self.set_event_loop = true;
                             }
 

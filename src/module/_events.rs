@@ -1,10 +1,7 @@
 use pyo3::prelude::*;
 
-use self::module::*;
-
 #[pymodule]
-#[pyo3(module = "events")]
-pub mod module {
+pub mod events {
     use super::*;
 
     #[pyfunction]
